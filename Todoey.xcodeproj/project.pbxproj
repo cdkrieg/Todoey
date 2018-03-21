@@ -13,6 +13,9 @@
 		A847E791205EC6D900F661AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A847E78F205EC6D900F661AD /* Main.storyboard */; };
 		A847E793205EC6D900F661AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A847E792205EC6D900F661AD /* Assets.xcassets */; };
 		A847E796205EC6D900F661AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A847E794205EC6D900F661AD /* LaunchScreen.storyboard */; };
+		A8831B152062C53600AAC7DF /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8831B162062C53600AAC7DF /* RealmSwift.framework */; };
+		A8831B172062C53C00AAC7DF /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8831B182062C53C00AAC7DF /* Realm.framework */; };
+		A8831B192062C54100AAC7DF /* SwipeCellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8831B1A2062C54100AAC7DF /* SwipeCellKit.framework */; };
 		A8A3345720608DAF0078A05D /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A3345620608DAF0078A05D /* CategoryViewController.swift */; };
 		A8A3345B2061CA390078A05D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A3345A2061CA390078A05D /* Item.swift */; };
 		A8A3345D2061CA440078A05D /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A3345C2061CA440078A05D /* Category.swift */; };
@@ -28,6 +31,9 @@
 		A847E792205EC6D900F661AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A847E795205EC6D900F661AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A847E797205EC6D900F661AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8831B162062C53600AAC7DF /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8831B182062C53C00AAC7DF /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8831B1A2062C54100AAC7DF /* SwipeCellKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwipeCellKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8A3345620608DAF0078A05D /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		A8A3345A2061CA390078A05D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		A8A3345C2061CA440078A05D /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -39,6 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8831B192062C54100AAC7DF /* SwipeCellKit.framework in Frameworks */,
+				A8831B172062C53C00AAC7DF /* Realm.framework in Frameworks */,
+				A8831B152062C53600AAC7DF /* RealmSwift.framework in Frameworks */,
 				79C42D731A1FE6EC3FFFDB7C /* Pods_Todoey.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,6 +58,9 @@
 		0A9A834B1D3628C36B9C1B38 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A8831B1A2062C54100AAC7DF /* SwipeCellKit.framework */,
+				A8831B182062C53C00AAC7DF /* Realm.framework */,
+				A8831B162062C53600AAC7DF /* RealmSwift.framework */,
 				13CCB6EE7559EA0A5EE99B35 /* Pods_Todoey.framework */,
 			);
 			name = Frameworks;
@@ -227,11 +239,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Todoey/Pods-Todoey-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
