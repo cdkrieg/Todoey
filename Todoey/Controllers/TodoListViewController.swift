@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import Foundation
 import RealmSwift
+import ChameleonFramework
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
 
     var todoItems: Results<Item>?
     let realm = try! Realm()
 
-    
     var selectedCategory: Category? {
         didSet{
             loadItems()
@@ -24,7 +23,8 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
     }
     
     //MARK: - Tableview Datasource Methods
@@ -32,18 +32,19 @@ class TodoListViewController: UITableViewController {
          return todoItems?.count ?? 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = todoItems?[indexPath.row] {
-        
             cell.textLabel?.text = item.title
-
             cell.accessoryType = item.done ? .checkmark : .none
+            if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage: ((CGFloat(indexPath.row)) / (CGFloat(todoItems!.count)))) {
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+                }
+
         } else {
             cell.textLabel?.text = "No Items Added"
         }
-        
         return cell
     }
     
@@ -70,20 +71,18 @@ class TodoListViewController: UITableViewController {
     @IBAction func addButtonPress(_ sender: UIBarButtonItem) {
         
         var textField = UITextField()
-        
         let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
-        
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //what will happen once the user clicks the Add Item button on UIAlert
-            
             if let currentCategory = self.selectedCategory {
                 do {
                     try self.realm.write {
                         let newItem = Item()
                         newItem.title = textField.text!
                         newItem.dateCreated = Date()
+                        newItem.color = UIColor.randomFlat.hexValue()
                         currentCategory.items.append(newItem)
-                }
+                    }
                 } catch {
                     print("Error saving item, \(error)")
                 }
@@ -97,17 +96,30 @@ class TodoListViewController: UITableViewController {
         }
         
         alert.addAction(action)
-        
         present(alert, animated: true, completion: nil)
-        
     }
+    
+    
     //MARK: Model Manipulation Methods
     
     func loadItems() {
        
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
-        
         tableView.reloadData()
+    }
+    override func updateModel(at indexpath: IndexPath) { // runs a method in superclass
+        
+        super.updateModel(at: indexpath) // will call superclass method steps before steps below
+        if let itemForDeletion = self.todoItems?[indexpath.row] {
+            do {
+                try self.realm.write {
+                    self.realm.delete(itemForDeletion)
+                }
+            } catch {
+                print("Error deleting category, \(error)")
+            }
+            tableView.reloadData()
+        }
     }
 }
 
@@ -118,17 +130,15 @@ extension TodoListViewController: UISearchBarDelegate {
         
         todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
         tableView.reloadData()
-
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
         if searchBar.text?.count == 0 {
             loadItems()
-
             DispatchQueue.main.async { // tells Xcode to grab the main thread and DO IT NOW!
                  searchBar.resignFirstResponder()
             }
-
         }
     }
 }
